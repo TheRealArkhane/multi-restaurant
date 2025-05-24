@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.testcase.kitchenservice.mapper.DishMapper">
+    <resultMap id="DishResultMap" type="com.testcase.kitchenservice.entity.Dish">
+        <id property="dishId" column="dish_id"/>
+        <result property="balance" column="balance"/>
+        <result property="shortName" column="short_name"/>
+        <result property="dishComposition" column="dish_composition"/>
+    </resultMap>
+
+    <sql id="DishColumns">
+        dish_id,
+        balance,
+        short_name,
+        dish_composition
+    </sql>
+
+    <select id="getAllDishes"
+            resultMap="DishResultMap">
+        SELECT
+        <include refid="DishColumns"/>
+        FROM dish
+    </select>
+
+    <select id="getDishById"
+            resultMap="DishResultMap">
+        SELECT
+        <include refid="DishColumns"/>
+        FROM dish
+        WHERE dish_id = #{id}
+    </select>
+
+    <select id="getDishesByIds" resultMap="DishResultMap">
+        SELECT
+        <include refid="DishColumns"/>
+        FROM dish
+        WHERE dish_id IN
+        <foreach collection="dishIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <update id="updateDishBalance" parameterType="map">
+        UPDATE dish
+        SET balance = balance + #{additionalValue}
+        WHERE dish_id = #{id}
+    </update>
+
+    <update id="batchUpdateDishBalances">
+        <foreach collection="set" item="dish" separator=";">
+            UPDATE dish
+            SET balance = balance + #{dish.additionalValue}
+            WHERE dish_id = #{dish.id}
+        </foreach>
+    </update>
+</mapper>

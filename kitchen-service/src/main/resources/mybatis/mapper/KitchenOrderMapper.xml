@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.testcase.kitchenservice.mapper.KitchenOrderMapper">
+
+    <resultMap id="OrderToDishResultMap" type="com.testcase.kitchenservice.entity.OrderToDish">
+        <id property="kitchenOrderId" column="kitchen_order_id"/>
+        <id property="dishId" column="dish_id"/>
+        <result property="dishesCount" column="dishes_number"/>
+    </resultMap>
+
+    <resultMap id="KitchenOrderResultMap" type="com.testcase.kitchenservice.entity.KitchenOrder" autoMapping="true">
+        <id property="kitchenOrderId" column="kitchen_order_id"/>
+        <result property="waiterOrderId" column="waiter_order_no"/>
+        <result property="status" column="status" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+        <result property="createDateTime" column="create_dttm"/>
+        <collection property="orderToDishes"
+                    ofType="com.testcase.kitchenservice.entity.OrderToDish"
+                    resultMap="OrderToDishResultMap"
+                    notNullColumn="dish_id"/>
+    </resultMap>
+
+    <sql id="kitchenOrderColumns">
+        ko.kitchen_order_id,
+        ko.waiter_order_no,
+        ko.status,
+        ko.create_dttm,
+        otd.kitchen_order_id AS otd_kitchen_order_id,
+        otd.dish_id,
+        otd.dishes_number
+    </sql>
+
+    <sql id="kitchenOrderJoins">
+        FROM kitchen_order ko
+        LEFT JOIN order_to_dish otd ON ko.kitchen_order_id = otd.kitchen_order_id
+    </sql>
+
+    <select id="getKitchenOrderById"
+            resultMap="KitchenOrderResultMap">
+        SELECT
+        <include refid="kitchenOrderColumns"/>
+        <include refid="kitchenOrderJoins"/>
+        WHERE ko.kitchen_order_id = #{id}
+    </select>
+
+    <select id="getKitchenOrdersByCriteria"
+            parameterType="com.testcase.kitchenservice.dto.CriteriaDTO"
+            resultMap="KitchenOrderResultMap">
+        SELECT
+        <include refid="kitchenOrderColumns"/>
+        <include refid="kitchenOrderJoins"/>
+        <where>
+            <if test="criteriaDTO != null">
+                <if test="criteriaDTO.status != null">
+                    AND ko.status = #{criteriaDTO.status}
+                </if>
+                <if test="criteriaDTO.createdFrom != null">
+                    AND ko.create_dttm &gt;= #{criteriaDTO.createdFrom}
+                </if>
+                <if test="criteriaDTO.createdTo != null">
+                    AND ko.create_dttm &lt;= #{criteriaDTO.createdTo}
+                </if>
+                <if test="criteriaDTO.waiterId != null">
+                    AND ko.waiter_order_no = #{criteriaDTO.waiterId}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <update id="updateStatus" parameterType="com.testcase.kitchenservice.entity.KitchenOrder">
+        UPDATE kitchen_order
+        SET status = #{order.status, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+        WHERE kitchen_order_id = #{order.kitchenOrderId}
+    </update>
+
+    <insert id="insertKitchenOrder" useGeneratedKeys="true" keyProperty="kitchenOrderId">
+        INSERT INTO kitchen_order (kitchen_order_id, waiter_order_no, status, create_dttm)
+        VALUES (#{kitchenOrderId}, #{waiterOrderId}, #{status}, #{createDateTime})
+    </insert>
+
+    <insert id="insertOrderToDish" parameterType="com.testcase.kitchenservice.entity.OrderToDish">
+        INSERT INTO order_to_dish (kitchen_order_id, dish_id, dishes_number)
+        VALUES (#{kitchenOrderId}, #{dishId}, #{dishesCount})
+    </insert>
+
+    <insert id="batchInsertOrderToDish">
+        INSERT INTO order_to_dish (kitchen_order_id, dish_id, dishes_number)
+        VALUES
+        <foreach collection="set" item="item" separator=",">
+            (#{item.kitchenOrderId}, #{item.dishId}, #{item.dishesCount})
+        </foreach>
+    </insert>
+</mapper>
