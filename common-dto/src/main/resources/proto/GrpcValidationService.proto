@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.education.grpc";
+option java_outer_classname = "GrpcValidationServiceProto";
+
+package validation;
+
+import "GrpcOrderValidationDTO.proto";
+
+message ValidationResponse {
+  bool valid = 1;
+  repeated string errors = 2;
+}
+
+service KitchenValidationService {
+  rpc ValidateOrder(GrpcOrderValidationDTOProto) returns (ValidationResponse);
+}
