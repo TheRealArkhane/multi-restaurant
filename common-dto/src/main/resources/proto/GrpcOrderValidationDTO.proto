@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.education.grpc";
+
+package validation;
+
+import "GrpcOrderPositionDTO.proto";
+
+message GrpcOrderValidationDTOProto {
+  int64 orderId = 1;
+  repeated GrpcOrderPositionDTOProto positions = 2;
+}

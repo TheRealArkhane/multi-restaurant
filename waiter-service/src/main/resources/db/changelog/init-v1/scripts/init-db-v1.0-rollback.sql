@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS order_positions;
+DROP TABLE IF EXISTS menu;
+DROP TABLE IF EXISTS payment;
+DROP TABLE IF EXISTS waiter_order;
+DROP TABLE IF EXISTS waiter_account;

@@ -1,0 +1,4 @@
+grpc:
+  enabled: true
+  server:
+    port: 9091

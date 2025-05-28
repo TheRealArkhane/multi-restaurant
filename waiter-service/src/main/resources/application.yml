@@ -1,0 +1,65 @@
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" #<2>
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/waiter_service_db
+    username: postgres
+    password: 0
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    enabled: true
+    change-log: db/changelog/db.changelog-master.xml
+    user: postgres
+    password: 0
+    default-schema: public
+
+  kafka:
+    bootstrap-servers: host.docker.internal:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      topic:
+        order-creation: order-creation-topic
+        waiter-order-status-updates: waiter-order-status-updates-topic
+      group:
+        waiter-status-group-id: waiter-order-status-updates-topic
+        order-creation-group-id: order-creation-topic
+    consumer:
+      topic:
+        kitchen-order-status-updates: kitchen-order-status-updates-topic
+      group:
+        kitchen-status-group-id: kitchen-order-status-updates-group
+
+  profiles:
+    active: default
+
+logging:
+  level:
+    liquibase: INFO
+    com.testcase.waiterservice.client.impl.FeignValidationClient: DEBUG
+
+springdoc:
+  api-docs:
+    path: /api-docs
+
+kitchen-service:
+  url: http://localhost:8081
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: FULL

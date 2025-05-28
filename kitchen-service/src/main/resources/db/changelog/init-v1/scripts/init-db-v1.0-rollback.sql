@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS order_to_dish;
+DROP TABLE IF EXISTS kitchen_order;
+DROP TABLE IF EXISTS dish;
