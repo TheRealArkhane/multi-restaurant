@@ -1,6 +1,6 @@
 package com.testcase.waiterservice.entity;
 
-import com.education.commondto.waiterservice.OrderStatus;
+import com.testcase.commondto.waiterservice.OrderStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

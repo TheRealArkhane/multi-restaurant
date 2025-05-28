@@ -1,7 +1,7 @@
 package com.testcase.kitchenservice.mapper;
 
-import com.education.kitchenservice.dto.DishBalanceUpdateDTO;
-import com.education.kitchenservice.entity.Dish;
+import com.testcase.kitchenservice.dto.DishBalanceUpdateDTO;
+import com.testcase.kitchenservice.entity.Dish;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

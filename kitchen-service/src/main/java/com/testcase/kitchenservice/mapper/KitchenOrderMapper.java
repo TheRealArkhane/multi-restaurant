@@ -1,8 +1,8 @@
 package com.testcase.kitchenservice.mapper;
 
-import com.education.kitchenservice.dto.CriteriaDTO;
-import com.education.kitchenservice.entity.KitchenOrder;
-import com.education.kitchenservice.entity.OrderToDish;
+import com.testcase.kitchenservice.dto.CriteriaDTO;
+import com.testcase.kitchenservice.entity.KitchenOrder;
+import com.testcase.kitchenservice.entity.OrderToDish;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

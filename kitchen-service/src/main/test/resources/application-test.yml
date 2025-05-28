@@ -1,0 +1,18 @@
+spring:
+  liquibase:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:tc:postgresql:latest:///test?TC_INITSCRIPT=db/init-test-db.sql
+    username: test
+    password: test
+    driver-class-name: org.postgresql.Driver
+
+mybatis:
+  mapper-locations: classpath*:mybatis/mapper/*.xml
+  type-aliases-package: com.education.kitchenservice.entity
+
+grpc:
+  enabled: false

@@ -1,6 +1,6 @@
 package com.testcase.kitchenservice.dto;
 
-import com.education.commondto.waiterservice.OrderStatus;
+import com.testcase.commondto.waiterservice.OrderStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

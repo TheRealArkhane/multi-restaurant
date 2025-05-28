@@ -1,7 +1,7 @@
 package com.testcase.waiterservice.repository.order;
 
-import com.education.commondto.waiterservice.OrderStatus;
-import com.education.waiterservice.entity.Order;
+import com.testcase.commondto.waiterservice.OrderStatus;
+import com.testcase.waiterservice.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;

@@ -1,6 +1,6 @@
 package com.testcase.waiterservice.repository;
 
-import com.education.waiterservice.entity.OrderPosition;
+import com.testcase.waiterservice.entity.OrderPosition;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

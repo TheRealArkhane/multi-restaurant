@@ -1,0 +1,19 @@
+spring:
+  liquibase:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:tc:postgresql:latest:///test?TC_INITSCRIPT=db/init-test-db.sql
+    username: test
+    password: test
+    driver-class-name: org.postgresql.Driver
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: FULL

@@ -1,6 +1,6 @@
 package com.testcase.kitchenservice.entity;
 
-import com.education.commondto.waiterservice.OrderStatus;
+import com.testcase.commondto.waiterservice.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

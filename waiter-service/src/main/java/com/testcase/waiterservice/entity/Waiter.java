@@ -1,6 +1,6 @@
 package com.testcase.waiterservice.entity;
 
-import com.education.commondto.waiterservice.Sex;
+import com.testcase.commondto.waiterservice.Sex;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

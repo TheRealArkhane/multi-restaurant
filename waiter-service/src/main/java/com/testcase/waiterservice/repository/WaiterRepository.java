@@ -1,6 +1,6 @@
 package com.testcase.waiterservice.repository;
 
-import com.education.waiterservice.entity.Waiter;
+import com.testcase.waiterservice.entity.Waiter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
